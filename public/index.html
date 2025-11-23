@@ -2,470 +2,519 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <title>Hawa co | شات حجز موتوسيكلات أبو حوا</title>
+    <title>Hawa Co – حجز موتوسيكل</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <style>
-        :root {
-            --bg: #05070a;
-            --bg-soft: #0e1117;
-            --bg-softer: #151924;
-            --accent: #00b4d8;
-            --accent-soft: rgba(0, 180, 216, 0.12);
-            --text: #f8fafc;
-            --text-muted: #9ca3af;
-            --border: #1f2933;
-            --danger: #f97373;
-        }
-
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
-            color: var(--text);
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                sans-serif;
+            background: radial-gradient(circle at top, #020617 0, #020617 50%, #020617 100%);
+            color: #0f172a;
             min-height: 100vh;
             display: flex;
+            align-items: center;
             justify-content: center;
-            padding: 16px;
         }
 
-        .app {
+        .app-shell {
             width: 100%;
-            max-width: 480px;
-            background: rgba(10, 12, 20, 0.96);
-            border-radius: 18px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.65);
+            max-width: 1000px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 520px;
+            background: #f3f4f6;
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            box-shadow:
+                0 18px 40px rgba(15, 23, 42, 0.45),
+                0 0 0 1px rgba(148, 163, 184, 0.4);
+            overflow: hidden;
+            position: relative;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
 
-        .header {
-            padding: 14px 16px 12px;
-            border-bottom: 1px solid var(--border);
+        /* الهيدر */
+        .top-bar {
+            padding: 12px 14px 10px;
+            background: linear-gradient(135deg, #0f172a, #111827);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+            color: #e5e7eb;
+        }
+
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .top-left {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, #020617, #0b1220);
         }
 
-        .logo-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            background: radial-gradient(circle at 30% 0%, #38bdf8, #0f172a 60%, #000);
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #bfdbfe, #1d4ed8);
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #0b1120;
+            font-size: 18px;
             font-weight: 800;
-            font-size: 16px;
-            color: #e0f2fe;
-            box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+            box-shadow:
+                0 0 0 2px rgba(191, 219, 254, 0.8),
+                0 0 18px rgba(37, 99, 235, 0.8);
         }
 
-        .logo-badge span {
-            letter-spacing: -1px;
-        }
-
-        .header-text {
-            flex: 1;
-        }
-
-        .header-title {
+        .logo-text-main {
             font-size: 15px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-weight: 600;
         }
 
-        .header-title span.en {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-muted);
-        }
-
-        .header-subtitle {
+        .logo-text-sub {
             font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 2px;
+            color: #9ca3af;
         }
 
         .status-pill {
-            font-size: 10px;
-            padding: 4px 8px;
+            font-size: 11px;
+            padding: 4px 11px;
             border-radius: 999px;
-            border: 1px solid rgba(34, 197, 94, 0.4);
+            background: rgba(22, 163, 74, 0.16);
             color: #bbf7d0;
-            background: rgba(21, 128, 61, 0.16);
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            border: 1px solid rgba(34, 197, 94, 0.4);
         }
 
         .status-dot {
             width: 7px;
             height: 7px;
-            border-radius: 50%;
+            border-radius: 999px;
             background: #22c55e;
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+            box-shadow: 0 0 8px #22c55e;
         }
 
-        .chat {
+        /* الأوضاع (٤ أزرار) */
+        .mode-row {
+            margin-top: 9px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 7px;
+            font-size: 11px;
+        }
+
+        .mode-btn {
+            padding: 6px 6px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.6);
+            color: #e5e7eb;
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.15s ease;
+        }
+
+        .mode-btn span {
+            font-size: 13px;
+            margin-left: 2px;
+        }
+
+        .mode-btn:hover {
+            background: rgba(30, 64, 175, 0.78);
+            border-color: rgba(191, 219, 254, 0.9);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            border-color: rgba(191, 219, 254, 0.9);
+            color: #f9fafb;
+            box-shadow:
+                0 0 14px rgba(37, 99, 235, 0.7),
+                0 0 0 1px rgba(30, 64, 175, 0.8);
+        }
+
+        /* المحتوى (شات) */
+        .content-wrap {
             flex: 1;
-            padding: 10px 12px 8px;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            background: radial-gradient(circle at top, #020617 0, #020617 40%, #020617 100%);
-            scroll-behavior: smooth;
+            background: linear-gradient(180deg, #e5e7eb, #f9fafb);
+            position: relative;
         }
 
-        .bubble-row {
+        .chat-pane {
+            position: relative;
+            z-index: 1;
             display: flex;
-            width: 100%;
+            flex-direction: column;
+            height: 100%;
         }
 
-        .bubble-row.user {
-            justify-content: flex-end;
+        .chat-body {
+            flex: 1;
+            padding: 12px 10px 6px;
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
 
-        .bubble-row.bot {
-            justify-content: flex-start;
-        }
-
-        .bubble {
-            max-width: 78%;
-            padding: 8px 10px;
+        .msg {
+            max-width: 82%;
+            padding: 8px 11px;
             border-radius: 14px;
             font-size: 13px;
             line-height: 1.5;
             white-space: pre-wrap;
-            word-wrap: break-word;
+            margin-bottom: 7px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
         }
 
-        .bubble.bot {
-            background: var(--bg-soft);
-            border: 1px solid var(--border);
+        .msg-bot {
+            margin-right: auto;
+            background: #ffffff;
+            color: #111827;
             border-bottom-left-radius: 4px;
+            border: 1px solid #e5e7eb;
         }
 
-        .bubble.user {
-            background: var(--accent-soft);
-            border: 1px solid rgba(56, 189, 248, 0.5);
-            color: #e0f2fe;
+        .msg-user {
+            margin-left: auto;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #f9fafb;
             border-bottom-right-radius: 4px;
+            border: 1px solid rgba(191, 219, 254, 0.9);
         }
 
-        .bubble small {
-            display: block;
-            margin-top: 4px;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .system-note {
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin: 4px 0 2px;
-        }
-
-        .suggestions {
-            padding: 0 10px 4px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: flex-start;
-        }
-
-        .suggestion-btn {
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            border-radius: 999px;
-            font-size: 11px;
-            padding: 5px 9px;
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.15s;
-        }
-
-        .suggestion-btn:hover {
-            border-color: var(--accent);
-            color: #e5faff;
-            background: rgba(8, 47, 73, 0.85);
-        }
-
-        .input-area {
-            padding: 8px 10px 10px;
-            border-top: 1px solid var(--border);
-            background: linear-gradient(180deg, #020617, #020617f0);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 6px;
-            align-items: flex-end;
-        }
-
-        textarea {
-            flex: 1;
-            resize: none;
-            min-height: 40px;
-            max-height: 100px;
-            border-radius: 12px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            padding: 8px 10px;
-            font-size: 13px;
-            background: var(--bg-softer);
-            color: var(--text);
-            outline: none;
-        }
-
-        textarea::placeholder {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        textarea:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
-        }
-
-        .send-btn {
-            border-radius: 999px;
-            border: none;
-            padding: 9px 14px;
-            font-size: 12px;
-            font-weight: 600;
+        .chat-footer {
+            padding: 8px 9px 10px;
+            border-top: 1px solid #e5e7eb;
+            background: #f3f4f6;
             display: flex;
             align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #0ea5e9, #22c55e);
-            color: #0b1120;
-            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.5);
-            white-space: nowrap;
+            gap: 7px;
+            position: relative;
+            z-index: 1;
         }
 
-        .send-btn:disabled {
-            opacity: 0.6;
+        #userInput {
+            flex: 1;
+            border: 1px solid rgba(148, 163, 184, 0.9);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 13px;
+            background: #ffffff;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+
+        #userInput::placeholder {
+            color: #9ca3af;
+        }
+
+        #userInput:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5);
+        }
+
+        #sendBtn {
+            border: none;
+            border-radius: 999px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #eff6ff;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.55);
+            transition: transform 0.12s ease, box-shadow 0.12s ease,
+                background 0.12s ease;
+        }
+
+        #sendBtn span {
+            font-size: 14px;
+            transform: translateY(0.5px);
+        }
+
+        #sendBtn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.7);
+        }
+
+        #sendBtn:active:not(:disabled) {
+            transform: translateY(0);
+            box-shadow: 0 5px 12px rgba(37, 99, 235, 0.55);
+        }
+
+        #sendBtn:disabled {
+            opacity: 0.65;
             cursor: default;
             box-shadow: none;
+            background: linear-gradient(135deg, #93c5fd, #60a5fa);
         }
 
-        .send-btn span.icon {
-            font-size: 14px;
-            transform: translateY(1px);
+        /* شريط المواعيد (Bank-style footer) */
+        .schedule-bar {
+            padding: 9px 12px 10px;
+            background: #0f172a;
+            border-top: 1px solid rgba(30, 64, 175, 0.7);
+            font-size: 11px;
+            color: #9ca3af;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .hint-row {
+        .schedule-line-main {
+            color: #e5e7eb;
+            font-weight: 500;
+        }
+
+        .schedule-line {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            color: var(--text-muted);
+            gap: 10px;
         }
 
-        .error {
-            color: var(--danger);
+        .schedule-label {
+            color: #9ca3af;
         }
 
-        @media (max-width: 480px) {
-            .app {
-                border-radius: 16px;
+        .schedule-value {
+            color: #bfdbfe;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .phone-frame {
+                border-radius: 0;
+                max-width: 100%;
             }
-            .header {
-                padding-inline: 12px;
-            }
-            .chat {
-                padding-inline: 8px;
+
+            body {
+                background: #020617;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app">
-        <header class="header">
-            <div class="logo-badge">
-                <span>Hc</span>
-            </div>
-            <div class="header-text">
-                <div class="header-title">
-                    <span>Hawa co</span>
-                    <span class="en">• Abu Hawa Moto Assistant</span>
+    <div class="app-shell">
+        <div class="phone-frame">
+            <!-- الهيدر -->
+            <div class="top-bar">
+                <div class="top-row">
+                    <div class="top-left">
+                        <div class="logo-mark">Hc</div>
+                        <div>
+                            <div class="logo-text-main">Hawa Co – شركة أبو حوا</div>
+                            <div class="logo-text-sub">خدمة عملاء حجز الموتوسيكلات والتروسيكلات</div>
+                        </div>
+                    </div>
+                    <div class="status-pill">
+                        <span class="status-dot"></span>
+                        متصل الآن
+                    </div>
                 </div>
-                <div class="header-subtitle">
-                    شات بوت لحجز موتوسيكلات أبو حوا والإجابة عن استفسارات الموديلات
+
+                <!-- ٤ اختيارات -->
+                <div class="mode-row">
+                    <button id="modeMoto" class="mode-btn active">
+                        موتوسيكل <span>🏍️</span>
+                    </button>
+                    <button id="modeTricycle" class="mode-btn">
+                        تروسيكل <span>🚚</span>
+                    </button>
+                    <button id="modeSpecs" class="mode-btn">
+                        المواصفات <span>📋</span>
+                    </button>
+                    <button id="modeConfirm" class="mode-btn">
+                        تأكيد / إلغاء <span>✔️</span>
+                    </button>
                 </div>
             </div>
-            <div class="status-pill">
-                <span class="status-dot"></span>
-                متصل
-            </div>
-        </header>
 
-        <div id="chat" class="chat">
-            <div class="system-note">
-                مرحبًا بحضرتك 👋<br />
-                Hawa co تحت أمر حضرتك في حجز الموتوسيكلات والاستفسار عن موديلات أبو حوا.
-            </div>
-            <div class="bubble-row bot">
-                <div class="bubble bot">
-                    أهلاً بحضرتك في Hawa co 🤝<br />
-                    حضرتك حابب تحجز موتوسيكل ولا بس تستفسر عن موديل أو مواصفات؟ 🙂✨
+            <!-- المحتوى (الشات) -->
+            <div class="content-wrap">
+                <div class="chat-pane">
+                    <div id="chatBody" class="chat-body"></div>
+
+                    <div class="chat-footer">
+                        <input
+                            id="userInput"
+                            type="text"
+                            placeholder="اكتب اسمك الثلاثي عشان نبدأ الحجز…"
+                        />
+                        <button id="sendBtn">
+                            إرسال
+                            <span>➤</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="suggestions">
-            <button class="suggestion-btn" data-text="مواصفات 703 rr">
-                مواصفات 703RR
-            </button>
-            <button class="suggestion-btn" data-text="مواصفات 703f">
-                مواصفات 703F أدفنشر
-            </button>
-            <button class="suggestion-btn" data-text="مواصفات Dayun 200">
-                مواصفات Dayun 200
-            </button>
-            <button class="suggestion-btn" data-text="مواصفات CMG TIGER">
-                مواصفات CMG TIGER
-            </button>
-            <button class="suggestion-btn" data-text="شكراً يا Hawa co ❤️">
-                رسالة شكر ❤️
-            </button>
-        </div>
-
-        <div class="input-area">
-            <div class="input-row">
-                <textarea
-                    id="messageInput"
-                    rows="1"
-                    placeholder="اكتب سؤالك هنا… (Enter للإرسال، Shift+Enter لسطر جديد)"
-                ></textarea>
-                <button id="sendBtn" class="send-btn">
-                    <span class="icon">➤</span>
-                    إرسال
-                </button>
-            </div>
-            <div class="hint-row">
-                <span>لا يتم طلب كاميرا أو مايك أو لوكيشن نهائيًا ✅</span>
-                <span id="status" class=""></span>
+            <!-- شريط المواعيد -->
+            <div class="schedule-bar">
+                <div class="schedule-line-main">
+                    مواعيد العمل: من 9 صباحًا إلى 6 مساءً – الإجازة الأسبوعية: الأحد.
+                </div>
+                <div class="schedule-line">
+                    <span class="schedule-label">المحافظة الحالية:</span>
+                    <span id="scheduleGov" class="schedule-value">
+                        لم يتم اختيار محافظة بعد
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        const chatEl = document.getElementById("chat");
-        const inputEl = document.getElementById("messageInput");
+        const chatBody = document.getElementById("chatBody");
+        const userInput = document.getElementById("userInput");
         const sendBtn = document.getElementById("sendBtn");
-        const statusEl = document.getElementById("status");
-        const suggestionButtons = document.querySelectorAll(".suggestion-btn");
+        const scheduleGov = document.getElementById("scheduleGov");
 
-        // هنحتفظ بالهيستوري زي ما السيرفر مستني
-        const history = [];
+        const modeMoto = document.getElementById("modeMoto");
+        const modeTricycle = document.getElementById("modeTricycle");
+        const modeSpecs = document.getElementById("modeSpecs");
+        const modeConfirm = document.getElementById("modeConfirm");
 
-        function appendMessage(role, text) {
-            const row = document.createElement("div");
-            row.className = "bubble-row " + (role === "user" ? "user" : "bot");
+        const sessionId = "web-" + Math.random().toString(36).slice(2);
 
-            const bubble = document.createElement("div");
-            bubble.className = "bubble " + (role === "user" ? "user" : "bot");
-            bubble.textContent = text;
-
-            row.appendChild(bubble);
-            chatEl.appendChild(row);
-            chatEl.scrollTop = chatEl.scrollHeight;
+        function addMessage(text, from = "bot") {
+            const div = document.createElement("div");
+            div.classList.add("msg");
+            div.classList.add(from === "user" ? "msg-user" : "msg-bot");
+            div.textContent = text;
+            chatBody.appendChild(div);
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        async function sendMessage(text) {
-            const message = text.trim();
-            if (!message) return;
+        function updateSchedule(booking) {
+            if (booking && booking.governorate) {
+                scheduleGov.textContent = booking.governorate;
+            }
+        }
 
-            // ضيف في الواجهة
-            appendMessage("user", message);
-            inputEl.value = "";
-            inputEl.style.height = "40px";
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
 
-            // حدّث الستاتس
-            statusEl.textContent = "جارى إرسال الرسالة…";
-            statusEl.classList.remove("error");
-
+            addMessage(text, "user");
+            userInput.value = "";
+            userInput.focus();
             sendBtn.disabled = true;
 
-            // نبني history بالشكل اللي السيرفر متعود عليه
-            history.push({ role: "user", content: message });
-
             try {
-                // لو الصفحة بتتفتح من نفس الدومين بتاع السيرفر
-                // استخدم "/chat" مباشرة
                 const res = await fetch("/chat", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ message, history })
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sessionId,
+                        message: text,
+                    }),
                 });
 
-                if (!res.ok) {
-                    throw new Error("HTTP " + res.status);
+                const data = await res.json();
+                if (data.reply) {
+                    addMessage(data.reply, "bot");
+                } else {
+                    addMessage("حصل خطأ فى الرد، جرّب تاني بعد شوية.", "bot");
                 }
 
-                const data = await res.json();
-                const reply = data.reply || "في مشكلة غير متوقعة، جرّب تاني بعد شوية 🙂✨";
-
-                history.push({ role: "assistant", content: reply });
-                appendMessage("assistant", reply);
-                statusEl.textContent = "تم الرد بنجاح ✅";
+                if (data.booking) {
+                    updateSchedule(data.booking);
+                }
             } catch (err) {
                 console.error(err);
-                statusEl.textContent = "حصلت مشكلة في الاتصال بالسيرفر، تأكد إنه شغال.";
-                statusEl.classList.add("error");
-                appendMessage(
-                    "assistant",
-                    "… في مشكلة في الاتصال بالسيرفر حاليًا، من فضلك تأكد إن السيرفر شغال على البورت 3000 ثم جرّب تاني 🙂✨"
-                );
+                addMessage("مش قادر أوصل للنظام، تأكد إن السيرفر شغال.", "bot");
             } finally {
                 sendBtn.disabled = false;
             }
         }
 
-        // زرار الإرسال
-        sendBtn.addEventListener("click", () => {
-            sendMessage(inputEl.value);
-        });
-
-        // Enter للإرسال – Shift+Enter سطر جديد
-        inputEl.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage(inputEl.value);
+        sendBtn.addEventListener("click", sendMessage);
+        userInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                sendMessage();
             }
         });
 
-        // Auto-grow للـ textarea
-        inputEl.addEventListener("input", () => {
-            inputEl.style.height = "40px";
-            inputEl.style.height = inputEl.scrollHeight + "px";
+        function resetModes() {
+            modeMoto.classList.remove("active");
+            modeTricycle.classList.remove("active");
+            modeSpecs.classList.remove("active");
+            modeConfirm.classList.remove("active");
+        }
+
+        // حجز موتوسيكل
+        modeMoto.addEventListener("click", () => {
+            resetModes();
+            modeMoto.classList.add("active");
+            addMessage(
+                "تم اختيار حجز موتوسيكل 🏍️\nاكتب اسمك الثلاثي لو لسه ما كتبتهوش، وخدمة العملاء هتكمل مع حضرتك باقي الخطوات.",
+                "bot"
+            );
         });
 
-        // أزرار الاقتراحات
-        suggestionButtons.forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const text = btn.getAttribute("data-text");
-                sendMessage(text);
-            });
+        // حجز تروسيكل
+        modeTricycle.addEventListener("click", () => {
+            resetModes();
+            modeTricycle.classList.add("active");
+            addMessage(
+                "تم اختيار حجز تروسيكل 🚚\nهنجمع نفس البيانات الأساسية، وبعدها تقدر تكتب نوع التروسيكل اللى محتاجه.",
+                "bot"
+            );
         });
+
+        // المواصفات
+        modeSpecs.addEventListener("click", () => {
+            resetModes();
+            modeSpecs.classList.add("active");
+            addMessage(
+                "للاستعلام عن المواصفات اكتب مثلاً:\n\"مواصفات دايون 150\" أو \"عايز مواصفات زانتوس 703\".\nخدمة العملاء هتطلعلك جدول المواصفات المتاح.",
+                "bot"
+            );
+        });
+
+        // تأكيد / إلغاء
+        modeConfirm.addEventListener("click", () => {
+            resetModes();
+            modeConfirm.classList.add("active");
+            addMessage(
+                "لو حابب تشوف ملخص بياناتك الحالية اكتب كلمة (ملخص).\nولو حابب تلغي الطلب الحالي اكتب (إلغاء الحجز) وخدمة العملاء هتبدأ معاك طلب جديد من الأول.",
+                "bot"
+            );
+        });
+
+        // رسالة ترحيب أول ما الصفحة تفتح
+        addMessage(
+            "أهلاً بيك فى شركة أبو حوا 👋\nاكتب اسمك الثلاثي كامل، وخدمة العملاء هتكمل مع حضرتك خطوات الحجز واحدة واحدة.",
+            "bot"
+        );
     </script>
 </body>
-</html>
+</html></html>
